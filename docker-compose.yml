@@ -7,7 +7,7 @@ services:
     # image: nixos/nix:latest
     # entrypoint: nix-shell -p xpilot-ng --run \
     # entrypoint: xpilot-ng-server -reportMeta -noQuit -contactPort 2001 -clientPortStart 2000 -clientPortEnd 2999
-    entrypoint: xpilot-ng-server -reportMeta -noQuit -contactPort 15345
+    entrypoint: xpilot-ng-server -reportMeta -noQuit -contactPort 15400 -clientPortStart 15401 -clientPortEnd 15499
     ports:
       - "15345"
     deploy:
@@ -18,7 +18,7 @@ services:
     image: beorn/xpilot-servers
     # image: nixos/nix:latest
     # entrypoint: nix-shell -p bloodspilot-server --run \
-    entrypoint: xpilots -reportMeta -contactPort 15346
+    entrypoint: xpilots -reportMeta -contactPort 15500 -clientPortStart 15501 -clientPortEnd 15599
     ports:
       - "15346"
     deploy:
