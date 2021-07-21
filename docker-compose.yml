@@ -2,21 +2,25 @@ version: "3.9"
 
 services:
   ng:
-    build: .
+    # build: .
+    image: beorn/xpilot-servers
     # image: nixos/nix:latest
     # entrypoint: nix-shell -p xpilot-ng --run \
-    #   "xpilot-ng-server --contactPort 2001 --clientPortStart 2000 --clientPortEnd 2999"
-    entrypoint: xpilot-ng-server --contactPort 2001 --clientPortStart 2000 --clientPortEnd 2999
+    entrypoint: xpilot-ng-server -noQuit -contactPort 2001 -clientPortStart 2000 -clientPortEnd 2999
     ports:
       - "2001"
       - "2000-2999/udp"
-
+    deploy:
+      replicas: 1
+  
   bloodspilot:
-    build: .
+    # build: .
+    image: beorn/xpilot-servers
     # image: nixos/nix:latest
     # entrypoint: nix-shell -p bloodspilot-server --run \
-    #   "xpilots --contactPort 3001 --clientPortStart 3000 --clientPortEnd 3999"
-    entrypoint: xpilots --contactPort 3001 --clientPortStart 3000 --clientPortEnd 3999
+    entrypoint: xpilots -contactPort 3001 -clientPortStart 3000 -clientPortEnd 3999
     ports:
       - "3001"
       - "3000-3999/udp"
+    deploy:
+      replicas: 1  
