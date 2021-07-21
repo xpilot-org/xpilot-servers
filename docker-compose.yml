@@ -6,21 +6,20 @@ services:
     image: beorn/xpilot-servers
     # image: nixos/nix:latest
     # entrypoint: nix-shell -p xpilot-ng --run \
-    entrypoint: xpilot-ng-server -noQuit -contactPort 2001 -clientPortStart 2000 -clientPortEnd 2999
+    # entrypoint: xpilot-ng-server -reportMeta -noQuit -contactPort 2001 -clientPortStart 2000 -clientPortEnd 2999
+    entrypoint: xpilot-ng-server -reportMeta -noQuit -contactPort 15345
     ports:
-      - "2001"
-      - "2000-2999/udp"
+      - "15345"
     deploy:
       replicas: 1
-  
+
   bloodspilot:
     # build: .
     image: beorn/xpilot-servers
     # image: nixos/nix:latest
     # entrypoint: nix-shell -p bloodspilot-server --run \
-    entrypoint: xpilots -contactPort 3001 -clientPortStart 3000 -clientPortEnd 3999
+    entrypoint: xpilots -reportMeta -contactPort 15346
     ports:
-      - "3001"
-      - "3000-3999/udp"
+      - "15346"
     deploy:
-      replicas: 1  
+      replicas: 1
