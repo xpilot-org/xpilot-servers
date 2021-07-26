@@ -1,7 +1,9 @@
 version: "3.9"
 
 services:
-  ng:
+
+  # Images built Dockerfile
+  ng1:
     # build: .
     image: beorn/xpilot-servers
     # image: nixos/nix:latest
@@ -13,7 +15,7 @@ services:
     deploy:
       replicas: 1
 
-  bloodspilot:
+  blood1:
     # build: .
     image: beorn/xpilot-servers
     # image: nixos/nix:latest
@@ -23,3 +25,21 @@ services:
       - "15550-15569:15550-15569/udp"
     deploy:
       replicas: 1
+
+  # Alternative using auto-built images from nixery.dev
+  blood2:
+    image: nixery.dev/bloodspilot-server
+    entrypoint: xpilots -reportMeta -contactPort 15650 -clientPortStart 15651 -clientPortEnd 15669
+    ports:
+      - "15650-15669:15650-15669/udp"
+  ng2:
+    image: nixery.dev/xpilot-ng
+    entrypoint: xpilot-ng-server -reportMeta -noQuit -contactPort 15750 -clientPortStart 15751 -clientPortEnd 15769
+    ports:
+      - "15750-15769:15750-15769/udp"
+
+  # Entrypoint for easy debugging - docker compose run debug
+  debug:
+    image: nixery.dev/shell/xpilot-ng/bloodspilot-server
+    profiles: ["debug"]
+    entrypoint: sh -ls
